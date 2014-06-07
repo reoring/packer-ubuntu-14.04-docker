@@ -17,3 +17,6 @@ apt-get update
 
 # Install. Confirm install.
 apt-get install -y docker.io
+
+# Link docker.io to docker
+ln -s /usr/bin/docker.io /usr/bin/docker
