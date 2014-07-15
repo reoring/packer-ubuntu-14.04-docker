@@ -1,20 +1,25 @@
 #!/bin/bash
 
-# Set up sudo
-echo %ubuntu ALL=NOPASSWD:ALL > /etc/sudoers.d/ubuntu
-chmod 0440 /etc/sudoers.d/ubuntu
+useradd -m -s /bin/bash vagrant
 
-# Setup sudo to allow no-password sudo for "sudo"
-usermod -a -G sudo ubuntu
+for user in vagrant ubuntu
+do
+	# Set up sudo
+	echo %$user ALL=NOPASSWD:ALL > /etc/sudoers.d/$user
+	chmod 0440 /etc/sudoers.d/$user
 
-# Installing ubuntu keys
-mkdir /home/ubuntu/.ssh
-chmod 700 /home/ubuntu/.ssh
-cd /home/ubuntu/.ssh
-wget --no-check-certificate 'https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub' -O authorized_keys
+	# Setup sudo to allow no-password sudo for "sudo"
+	usermod -a -G sudo $user
 
-chmod 600 /home/ubuntu/.ssh/authorized_keys
-chown -R ubuntu /home/ubuntu/.ssh
+	# Installing ubuntu keys
+	mkdir -p /home/$user/.ssh
+	chmod 700 /home/$user/.ssh
+	cd /home/$user/.ssh
+	wget --no-check-certificate 'https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub' -O authorized_keys
+
+	chmod 600 /home/$user/.ssh/authorized_keys
+	chown -R $user /home/$user/.ssh
+done
 
 # Install NFS for ubuntu
 apt-get update
