@@ -24,3 +24,11 @@ done
 # Install NFS for ubuntu
 apt-get update
 apt-get install -y nfs-common
+
+# Set up .bashrc
+cat << EOF >> /home/vagrant/.bashrc
+
+if [ -f /vagrant/.bashrc ]; then
+    . /vagrant/.bashrc
+fi
+EOF
