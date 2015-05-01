@@ -85,23 +85,22 @@
         },
         {
             "type": "shell",
-            "scripts": [
-                "scripts/docker.sh"
-            ],
+            "scripts": "scripts/docker.sh",
             "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'"
         },
         {
             "type": "shell",
-            "scripts": [
-                "scripts/docker-containers.sh"
-            ],
+            "scripts": "scripts/docker-containers.sh",
             "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'"
         },
         {
             "type": "shell",
-            "scripts": [
-                "scripts/vm_cleanup.sh"
-            ],
+            "scripts": "scripts/docker-fig.sh",
+            "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'"
+        },
+        {
+            "type": "shell",
+            "scripts": "scripts/vm_cleanup.sh",
             "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'"
         }
     ],
