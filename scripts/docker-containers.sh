@@ -5,7 +5,7 @@ set -eu
 CONTAINERS=(
   "clue/httpie"
   "mysql"
-  "selenium/hub"
+  "selenium/hub:2.44.0"
   "shouldbee/ansible-boto"
   "shouldbee/baseimage-go"
   "shouldbee/bootstrap-compile-kit"
@@ -19,7 +19,7 @@ CONTAINERS=(
   "shouldbee/phantomjs"
   "shouldbee/php"
   "shouldbee/php-cs-fixer"
-  "shouldbee/scala"
+  "shouldbee/scala:2.10.4"
   "shouldbee/selenium"
   "shouldbee/selenium-node-chrome"
   "shouldbee/selenium-node-firefox"
