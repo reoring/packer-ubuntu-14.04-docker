@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Removing apt caches
+echo "cleaning apt caches"
+rm -rf /var/lib/apt/lists/*
+apt-get autoremove
+apt-get clean
+
 # Removing leftover leases and persistent rules
 echo "cleaning up dhcp leases"
 rm /var/lib/dhcp/*
@@ -13,6 +19,10 @@ rm /lib/udev/rules.d/75-persistent-net-generator.rules
 
 echo "Adding a 2 sec delay to the interface up, to make the dhclient happy"
 echo "pre-up sleep 2" >> /etc/network/interfaces
+
+# Truncate log files
+echo "cleaning /var/log files"
+find /var/log -type f -exec truncate -s 0 {} \;
 
 # Zero out the free space to save space in the final image:
 echo "Zeroing device to make space..."

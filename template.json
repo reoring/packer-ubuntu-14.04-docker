@@ -3,12 +3,13 @@
         "aws_access_key": "",
         "aws_secret_key": ""
     },
-
     "builders": [
         {
             "type": "vmware-iso",
-            "iso_url": "http://ftp.jaist.ac.jp/pub/Linux/ubuntu-releases/trusty/ubuntu-14.04.2-server-amd64.iso",
-            "iso_checksum": "8acd2f56bfcba2f7ac74a7e4a5e565ce68c024c38525c0285573e41c86ae90c0",
+            "vm_name": "ubuntu",
+            "headless": true,
+            "iso_url": "http://ftp.jaist.ac.jp/pub/Linux/ubuntu-releases/trusty/ubuntu-14.04.3-server-amd64.iso",
+            "iso_checksum": "a3b345908a826e262f4ea1afeb357fd09ec0558cf34e6c9112cead4bb55ccdfb",
             "iso_checksum_type": "sha256",
             "boot_wait": "5s",
             "boot_command": [
@@ -29,8 +30,10 @@
         },
         {
             "type": "virtualbox-iso",
-            "iso_url": "http://ftp.jaist.ac.jp/pub/Linux/ubuntu-releases/trusty/ubuntu-14.04.2-server-amd64.iso",
-            "iso_checksum": "8acd2f56bfcba2f7ac74a7e4a5e565ce68c024c38525c0285573e41c86ae90c0",
+            "vm_name": "ubuntu",
+            "headless": true,
+            "iso_url": "http://ftp.jaist.ac.jp/pub/Linux/ubuntu-releases/trusty/ubuntu-14.04.3-server-amd64.iso",
+            "iso_checksum": "a3b345908a826e262f4ea1afeb357fd09ec0558cf34e6c9112cead4bb55ccdfb",
             "iso_checksum_type": "sha256",
             "boot_wait": "5s",
             "boot_command": [
@@ -85,6 +88,11 @@
         },
         {
             "type": "shell",
+            "scripts": "scripts/dev-tools.sh",
+            "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'"
+        },
+        {
+            "type": "shell",
             "scripts": "scripts/docker.sh",
             "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'"
         },
@@ -95,7 +103,7 @@
         },
         {
             "type": "shell",
-            "scripts": "scripts/docker-fig.sh",
+            "scripts": "scripts/docker-compose.sh",
             "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'"
         },
         {
@@ -108,6 +116,8 @@
     "post-processors": [
         {
             "type": "vagrant",
+            "output": "ubuntu-14.04-with-docker.{{.Provider}}.box",
+            "compression_level": 9,
             "keep_input_artifact": true
         }
     ]
